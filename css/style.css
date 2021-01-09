@@ -1,0 +1,8 @@
+html{
+    padding: 10px;
+}
+
+.add-folder{
+    border: solid 1px gray;
+    cursor: pointer;
+}
