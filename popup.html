@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3.0.5"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
     <div id="app">
-        <div id="add-folder" @clcik="test">Add Folder</div>
+        <!-- <div id="add-folder" @click="addFolder">Add Folder</div> -->
+        <label for="folder-input" class="add-folder-btn">Add Folder</label>
+        <input id="folder-input" type="file" @change="test($event)" webkitdirectory directory>
+        <div id="folder-list" ref="folderList">{{title}}</div>
+        
+
     </div>
+    
+    <script type="module">
+        import app from './popup.js'
+        const {createApp} = Vue;
+        createApp(app).mount('#app');
+    </script>
 
     <script src="popup.js"></script>
 </body>

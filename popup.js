@@ -1,10 +1,30 @@
-import {createApp} from 'vue'
 
-const addFolder_btn = document.getElementById("add-folder")
+const {ref} = Vue;
+export default {
+    name: 'Test',
+    
+    setup() {
+        const title = "Hello";
+        const folderList = ref(null)
+        
+        const addFolder = () => {
+            // folderList.
+            // const folderList = document.getElementById("folder-list")
+            folderList.value.appendChild(document.createElement("input"))
+        }
 
+        const test = (evnt) => {
+            console.log(evnt)
+        }
 
-const app = createApp({
-    // root instance definition
-  });
-  
-  app.mount("#app");
+        
+        return {
+            title,
+            addFolder,
+            folderList,
+            test,
+        };
+    },
+
+};
+
