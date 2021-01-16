@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,37 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
+
 <body>
     <div id="app">
-        <!-- <div id="add-folder" @click="addFolder">Add Folder</div> -->
-        <label for="folder-input" class="add-folder-btn">Add Folder</label>
-        <input id="folder-input" type="file" @change="test($event)" webkitdirectory directory>
-        <div id="folder-list" ref="folderList">{{title}}</div>
+
+        <div class="add-new-form">
+            <p>Quick Save As</p>
+            <input type="text" id="directory-name" class="new-input" ref="newDirectoryName" placeholder="Name">
+            <input type="text" id="directory-path" class="new-input" ref="newDirectoryPath" placeholder="Directory Path">
+            <div class="add-new-btn create-btn" @click="addFolder">Add New</div>
+            <div class="add-new-btn create-btn" @click="clearStorge">Clear Data</div>
+        </div>
         
+        <hr>
+
+        <div id="folder-list" ref="folderList">
+
+            <div class="folder-links-item" v-for="link in directorysList.data" :key="link.name">
+                <div class="item-info">
+                    <p>{{link.name}}</p>
+                    <p>{{link.path}}</p>
+                </div>
+                <div class="operate-btn edit-btn">Edit</div>
+                <div class="operate-btn delete-btn">Delete</div>
+            </div>
+
+        </div>
 
     </div>
-    
+
+    <div id="modal"></div>
+
     <script type="module">
         import app from './popup.js'
         const {createApp} = Vue;
@@ -25,4 +47,5 @@
 
     <script src="popup.js"></script>
 </body>
+
 </html>

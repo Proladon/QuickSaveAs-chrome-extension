@@ -4,4 +4,6 @@ chrome.runtime.onInstalled.addListener(() => {
         title: "Quick Save As",
         contexts: ["image"],
     });
+
+    
 });
