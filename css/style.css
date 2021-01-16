@@ -18,9 +18,20 @@ body{
     padding: 15px;
 }
 
+.pages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-link{
+    cursor: pointer;
+    color: white;
+}
 
 .add-new-btn{
-    /* width: 100%; */
+    width: 100%;
     border: solid 1px gray;
     border-radius: 5px;
     text-align: center;
@@ -35,7 +46,7 @@ body{
     color: springgreen;
 }
 
-.add-new-form{
+.add-new-folder-form{
     margin-top: 10px;
     color: skyblue;
     text-align: center;
@@ -48,14 +59,25 @@ body{
     text-align: center;
     box-sizing: border-box;
     padding: 0;
-    border: solid 1px skyblue;
+    border: solid 1px darkslategrey;
     border-radius: 5px;
     background-color: lightgray;
     outline: none;
 }
 
+
+.btn-wrapper{
+    display: flex;
+    gap: 5px;
+}
+
 .create-btn{
    margin-top: 5px;
+}
+
+.clear-btn{
+    margin-top: 5px;
+    background-color: hotpink;
 }
 
 
