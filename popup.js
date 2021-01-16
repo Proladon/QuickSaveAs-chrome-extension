@@ -8,6 +8,7 @@ export default {
         const title = "Hello";
         const newDirectoryName = ref(null)
         const newDirectoryPath = ref(null)
+        const newDirectoryCategory = ref(null)
         const directorysList = reactive({data:[]})
         var error = chrome.runtime.lastError;
         
@@ -19,8 +20,6 @@ export default {
                     chrome.storage.sync.set({ 'directorys': [] }, () => { })
                 }
                 directorysList.data = res.directorys
-                console.log(res)
-                console.log(directorysList.data)
             })
 
 
@@ -33,18 +32,20 @@ export default {
             })
         }
 
-        const addFolder = (e) => {
-            const name = newDirectoryName.value.value
-            const path = newDirectoryPath.value.value
-
+        const updateDirectorysStorge = (method, data=null, index=null) => {
             chrome.storage.sync.get(['directorys'], (res) => {
                 // Update new data
                 let newData = res.directorys
-                newData.push({name,path})
+
+                if (method === 'add') {
+                    newData.push(data)
+                }
+                else if (method === 'delete') {
+                    newData.splice(index, 1)
+                }
                 
                 const storge = {}
                 storge['directorys'] = newData
-
                 
                 // Push new data to storge
                 chrome.storage.sync.set(storge, () => {
@@ -57,17 +58,35 @@ export default {
                     }
                 })
             })
+        }
+        
+        
+        
+        const addFolder = (e) => {
+            const name = newDirectoryName.value.value
+            const path = newDirectoryPath.value.value
+            // const category = newDirectoryCategory.value.value
+            
+            updateDirectorysStorge('add', {name, path})
         };
 
+
+
+
+        const deleteFolder = index => {
+            updateDirectorysStorge('delete', index=index)
+        }
 
         
         return {
             title,
             newDirectoryName,
             newDirectoryPath,
+            updateDirectorysStorge,
             addFolder,
             clearStorge,
-            directorysList
+            directorysList,
+            deleteFolder
         };
     },
 

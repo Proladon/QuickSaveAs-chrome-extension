@@ -15,6 +15,7 @@
         <div class="add-new-form">
             <p>Quick Save As</p>
             <input type="text" id="directory-name" class="new-input" ref="newDirectoryName" placeholder="Name">
+            <!-- <input type="text" id="directory-cate" class="new-input" ref="newDirectoryCategory" placeholder="Category"> -->
             <input type="text" id="directory-path" class="new-input" ref="newDirectoryPath" placeholder="Directory Path">
             <div class="add-new-btn create-btn" @click="addFolder">Add New</div>
             <div class="add-new-btn create-btn" @click="clearStorge">Clear Data</div>
@@ -24,13 +25,13 @@
 
         <div id="folder-list" ref="folderList">
 
-            <div class="folder-links-item" v-for="link in directorysList.data" :key="link.name">
+            <div class="folder-links-item" v-for="(link, index) in directorysList.data" :key="link.name">
                 <div class="item-info">
                     <p>{{link.name}}</p>
                     <p>{{link.path}}</p>
                 </div>
                 <div class="operate-btn edit-btn">Edit</div>
-                <div class="operate-btn delete-btn">Delete</div>
+                <div class="operate-btn delete-btn" @click="deleteFolder(index)">Delete</div>
             </div>
 
         </div>
