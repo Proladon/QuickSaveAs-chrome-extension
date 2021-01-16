@@ -45,20 +45,29 @@ export default {
                 let cates = res.categorys
                 const storge = {}
                 
+                //:: ADD
                 if (method === 'add') {
                     newData.push(data)
                     
-                    // Checking Category Data
+                    // Checking category already exist or not
                     if (!cates.includes(data.category)) {
                         cates.push(data.category)
                         storge['categorys'] = cates
+
+                        chrome.contextMenus.create({
+                            id: data.category,
+                            title: data.category,
+                            parentId: 'contextRoot',
+                            contexts: ["image"],
+                        })
                     }
                 }
+                //:: DELETE
                 else if (method === 'delete') {
                     const targetCate = newData[index].category
                     newData.splice(index, 1)
                     
-                    
+                    // Checking category alive or not
                     let alive = false
                     for (let data of newData) {
                         if (data.category === targetCate) {
@@ -68,10 +77,9 @@ export default {
                     }
                     if(!alive) {
                         cates.splice(cates.indexOf(targetCate), 1)
+                        chrome.contextMenus.remove(targetCate)
                         storge['categorys'] = cates
                     }
-                    
-                    
                 }
                 
                 storge['directorys'] = newData
@@ -126,6 +134,8 @@ export default {
                     chrome.storage.sync.set({ 'directorys': [], 'categorys':[] }, () => { })
                 }
                 directorysList.data = res.directorys
+                
+                
             })
         })
         

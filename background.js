@@ -5,5 +5,17 @@ chrome.runtime.onInstalled.addListener(() => {
         contexts: ["image"],
     });
 
+    chrome.storage.sync.get(['categorys'], res => {
+        for (let cate of res.categorys) {
+            chrome.contextMenus.create({
+                id: cate,
+                title: cate,
+                parentId: 'contextRoot',
+                contexts: ["image"],
+            })
+        }
+    })
+
+
     
 });
