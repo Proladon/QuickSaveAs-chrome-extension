@@ -53,7 +53,8 @@ export default {
                     if (!cates.includes(data.category)) {
                         cates.push(data.category)
                         storge['categorys'] = cates
-
+                        
+                        // create new category contextMenu
                         chrome.contextMenus.create({
                             id: data.category,
                             title: data.category,
@@ -61,12 +62,24 @@ export default {
                             contexts: ["image"],
                         })
                     }
+                    
+                    // push to contextMenu
+                    chrome.contextMenus.create({
+                        id: data.name,
+                        title: data.name,
+                        parentId: data.category,
+                        contexts: ["image"],
+                    })
                 }
                 //:: DELETE
                 else if (method === 'delete') {
+                    const targetName = newData[index].name
                     const targetCate = newData[index].category
                     newData.splice(index, 1)
                     
+                    // create new category contextMenu
+                    chrome.contextMenus.remove(targetName)
+
                     // Checking category alive or not
                     let alive = false
                     for (let data of newData) {
@@ -80,6 +93,7 @@ export default {
                         chrome.contextMenus.remove(targetCate)
                         storge['categorys'] = cates
                     }
+
                 }
                 
                 storge['directorys'] = newData
